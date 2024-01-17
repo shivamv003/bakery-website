@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bakery Items</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em 0;
+        }
+        .container{
+            display: inline-flex;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .cont1{
+            width: 60%;
+            overflow:scroll;
+                 overflow-x: hidden;
+         height: 700px;
+        }
+        .cont2{
+            width: 35%;
+             overflow:scroll;
+                 overflow-x: hidden;
+                height: 700px;
+        }
+
+        section {
+            max-width: 100%;
+            display: flex;
+/*            height: 200px;*/
+/*            margin: 0 auto;*/
+            padding: 20px;
+        
+        }
+
+        .section2 {
+            background-color: antiquewhite;
+            width: 100%;
+            height: 100%;
+            overflow: scroll;
+       
+            border-radius: 10px;
+            display: block;
+/*            height: 200px;*/
+/*            margin: 0 auto;*/
+            padding: 20px;
+/*            border:2px solid black;*/
+        }
+
+        .bakery-item {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin: 10px;
+            width: 400px;
+            padding: 15px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .bakery-item img {
+            width: 100%;
+            height: 250px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #333;
+        }
+        
+           ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin: 10px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+/*            align-items: center;*/
+        }
+        
+        button {
+            background-color: #333;
+            color: #fff;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+    
+</head>
+
+<body>
+
+    <header>
+        <h1>Bakery Items</h1>
+    </header>
+    
+<div class="container">
+    
+<div class="cont1">
+    <section>
+        <div class="bakery-item">
+            <img src="pastry.jpg" alt="Fresh Bread">
+            <h2>Pastry</h2>
+            <p>Rs.50</p>
+             <button onclick="addItem('Pastry',50)">Add to Cart</button>
+        </div>
+
+     <div class="bakery-item">
+            <img src="brownie.jpg" alt="Croissant">
+            <h2>Brownie</h2>
+            <p>Rs.120</p>
+          <button onclick="addItem('Brownie',120)">Add to Cart</button>
+        </div>
+
+        <div class="bakery-item">
+            <img src="cinnamon%20roll.jpg" alt="Croissant">
+            <h2>Cinnamon roll</h2>
+<p>Rs.90</p>
+             <button onclick="addItem('Cinnamon Roll',90)">Add to Cart</button>
+        </div>
+        
+    </section>
+    <section>
+        <div class="bakery-item">
+            <img src="cookies.jpg" alt="Fresh Bread">
+            <h2>Cookies</h2>
+           <p>Rs.150</p>
+             <button onclick="addItem('Cookies',150)">Add to Cart</button>
+        </div>
+<div class="bakery-item">
+            <img src="donuts.jpg" alt="Croissant">
+            <h2>Donuts</h2>
+            <p>Rs.250</p>
+     <button onclick="addItem('Donuts',250)">Add to Cart</button>
+        </div>
+
+        <div class="bakery-item">
+            <img src="cupcake.jpg" alt="Croissant">
+            <h2>cupcake</h2>
+           <p>Rs.200</p>
+             <button onclick="addItem('Cupcake',200)">Add to Cart</button>
+        </div>
+         
+        
+    </section>
+    <section>
+        <div class="bakery-item">
+            <img src="cake.jpg" alt="Fresh Bread">
+            <h2>Cake</h2>
+            <p>Rs.800</p>
+             <button onclick="addItem('Cake',800)">Add to Cart</button>
+        </div>
+
+       <div class="bakery-item">
+            <img src="waffles.jpg" alt="Croissant">
+            <h2>Waffles</h2>
+            <p>Rs.290</p>
+            <button onclick="addItem('Waffles',290)">Add to Cart</button>
+        </div>
+
+        <div class="bakery-item">
+            <img src="cookies.jpg" alt="Croissant">
+            <h2>Croissant</h2>
+           <p>Rs.400</p>
+             <button onclick="addItem('Croissant', 400)">Add to Cart</button>
+        </div>
+    </section>
+</div>
+    
+<div class=cont2>
+<section class="section2">
+ <h2>Shopping Cart</h2>
+        <ul id="cartList"></ul> 
+    <br><br>
+    <p id="total">Total: RS 0.00</p>
+    <button onclick="placed()">Place order</button>
+
+</section>
+</div>
+    </div>
+    
+
+    
+    <script>
+        function placed(){
+            alert("order placed");
+        };
+        
+    function addItem(itemName, price) {
+        var cartList = document.getElementById('cartList');
+        var listItem = document.createElement('li');
+        listItem.textContent = itemName + ' - Rs' + price;
+
+        var removeButton = document.createElement('button');
+        removeButton.textContent = 'Remove from Cart';
+        removeButton.onclick = function () {
+            cartList.removeChild(listItem);
+            calculateTotal();
+        };
+
+        listItem.appendChild(removeButton);
+        cartList.appendChild(listItem);
+
+        calculateTotal();
+    }
+
+    function calculateTotal() {
+        var cartList = document.getElementById('cartList');
+        var totalElement = document.getElementById('total');
+        var items = cartList.getElementsByTagName('li');
+        var total = 0;
+
+        for (var i = 0; i < items.length; i++) {
+            var itemText = items[i].textContent;
+            var price = parseFloat(itemText.split('Rs')[1]); // Extract price from text
+            total += price;
+        }
+
+        totalElement.textContent = 'Total: Rs' + total.toFixed(2);
+    }
+</script>
+
+    
+</body>
+
+</html>
